@@ -19,7 +19,8 @@ const router: IRouter = Router();
 // in an API response risks token leakage via browser history, logs, or
 // XSS — the frontend never needs it; only the backend uses it for GitHub calls.
 router.get('/me', requireAuth, async (req, res, next) => {
-  try {
+  // try {
+    console.log("testing log at api/me route");
     const sessionUser = req.user as User;
 
     // Fetch a fresh copy from the DB so the response always reflects the
@@ -42,9 +43,9 @@ router.get('/me', requireAuth, async (req, res, next) => {
       email: user.email,
       avatarUrl: user.avatarUrl,
     });
-  } catch (err) {
-    next(err);
-  }
+  // } catch (err) {
+  //   next(err);
+  // }
 });
 
 export default router;
