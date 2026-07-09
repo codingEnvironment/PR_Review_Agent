@@ -18,7 +18,7 @@ const router: IRouter = Router();
 // The access token grants full repo access on behalf of the user. Exposing it
 // in an API response risks token leakage via browser history, logs, or
 // XSS — the frontend never needs it; only the backend uses it for GitHub calls.
-router.get('/me', requireAuth, async (req, res, next) => 
+router.get('/me', requireAuth, async (req, res, next) => {
   // try {
     console.log("testing log at api/me route");
     const sessionUser = req.user as User;
@@ -46,6 +46,6 @@ router.get('/me', requireAuth, async (req, res, next) =>
   // } catch (err) {
   //   next(err);
   // }
-});
+);
 
 export default router;
