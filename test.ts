@@ -48,4 +48,14 @@ router.get('/me', requireAuth, async (req, res, next) =>
   // }
 );
 
+
+// Bad — promise is created but neither awaited nor caught
+async function handleRequest(req, res) {
+  saveAuditLog(req)   // floating — if it rejects, nobody knows
+  res.json({ ok: true })
+}
+
+// Bad — .then() chain with no rejection handler
+fetchUserPreferences(userId).then(prefs => applyPreferences(prefs))
+
 export default router;
