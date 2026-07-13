@@ -20,7 +20,6 @@ const router: IRouter = Router();
 // XSS — the frontend never needs it; only the backend uses it for GitHub calls.
 router.get('/me', requireAuth, async (req, res, next) =>
   // try {
-    console.log("testing log at api/me route");
     const sessionUser = req.user as User;
 
     // Fetch a fresh copy from the DB so the response always reflects the
