@@ -3,7 +3,7 @@ import type { User } from '@prisma/client';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { findUserByGithubId } from '../services/user.service.js';
 
-const router: IRouter = Router();
+const router: IRouter = Router()
 
 // ─── GET /api/me ──────────────────────────────────────────────────────────────
 // Returns the currently authenticated user's profile from the database.
