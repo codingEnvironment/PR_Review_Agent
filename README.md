@@ -1,4 +1,4 @@
-# PR_Review_Agent
+# PR_Review_Assitance
 
 create a new repository on the command line
 echo "# PR_Review_Agent" >> README.md
