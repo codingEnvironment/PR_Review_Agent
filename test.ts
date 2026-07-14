@@ -57,4 +57,34 @@ async function handleRequest(req, res) {
 // Bad — .then() chain with no rejection handler
 fetchUserPreferences(userId).then(prefs => applyPreferences(prefs))
 
+
+// Bad — if any one promise rejects, all results are lost
+const [users, orders, inventory] = await Promise.all([
+  fetchUsers(),
+  fetchOrders(),
+  fetchInventory(),
+])
+// A single rejection from fetchOrders() discards fetchUsers() and fetchInventory() results
+
+// Bad — partial failures silently become undefined
+const results = await Promise.allSettled([a(), b(), c()])
+results.forEach(r => process(r.value))   // r.value is undefined for rejected entries
+
+// Bad — error escapes the enclosing try/catch entirely
+async function scheduleCleanup(id) {
+  try {
+    await acquireLock(id)
+    setTimeout(() => {
+      deleteStaleRecords(id)   // if this throws, it's uncaught — different call stack
+    }, 5000)
+  } catch (err) {
+    logger.error(err)
+  }
+}
+
+// Bad — same problem with process.nextTick
+process.nextTick(() => {
+  riskyOperation()   // any throw here becomes an uncaughtException
+})
+
 export default router;
